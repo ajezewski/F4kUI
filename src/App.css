@@ -1,0 +1,53 @@
+.App {
+  text-align: center;
+  background: url(bg.jpg);
+  background-size: cover;
+  height: 100%;
+  position: relative;
+  display: grid;
+  grid-template-areas:
+    "header header header"
+    "aside-left dashboard aside-right"
+    "footer footer footer";
+  grid-template-rows: 40px 1fr 40px;
+  grid-template-columns: 10px auto 10px;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 10vmin;
+  margin: 25vmin 0;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+.App > header {
+  background: #000;
+  color: #fff;
+  line-height: 30px;
+  grid-area: header;
+}
+aside { }
+aside.left {
+  grid-area: aside-left;
+}
+aside.right {
+  grid-area: aside-right;
+}
+footer {
+  grid-area: footer;
+}
+.boxDashboard{
+  grid-area: dashboard;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

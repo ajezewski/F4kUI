@@ -1,0 +1,41 @@
+button {
+    background: rgba(213, 244, 255, 0.24);
+    border: 3px double rgba(255, 255, 255, 0.3);
+    color: rgba(255, 255, 255, 0.8);
+    cursor: pointer;
+    display: inline-block;
+    font-family: 'Cousine', monospace;
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 0.2em 1.1em;
+    transition: all ease-in 0.4s;
+    transform: skew(-30deg)
+}
+
+button:hover {
+    background: rgba(213, 244, 255, 0.14);
+    color: #fff;
+}
+
+button span {
+    display: block;
+    transform: skew(30deg);
+}
+
+.alert {
+    color: #913238;
+    border-color: #913238;
+}
+
+.info {
+    color: #b4dcf5;
+    border-color: #b4dcf5;
+}
+.more {
+    color: #ecd6ad;
+    border-color: #ecd6ad;
+}
+.accept {
+    color: #7caa7b;
+    border-color: #7caa7b;
+}

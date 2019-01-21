@@ -1,0 +1,6 @@
+aside {
+    transition: all 0.4s ease-in 0s;
+}
+aside:hover {
+    background: black;
+}
