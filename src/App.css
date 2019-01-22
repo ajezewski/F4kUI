@@ -5,10 +5,7 @@
   height: 100%;
   position: relative;
   display: grid;
-  grid-template-areas:
-    "header header header"
-    "aside-left dashboard aside-right"
-    "footer footer footer";
+  grid-template-areas: "header header header" "aside-left dashboard aside-right" "footer footer footer";
   grid-template-rows: 40px 1fr 40px;
   grid-template-columns: 10px auto 10px;
 }
@@ -29,17 +26,23 @@
   line-height: 30px;
   grid-area: header;
 }
-aside { }
+
+aside {
+}
+
 aside.left {
   grid-area: aside-left;
 }
+
 aside.right {
   grid-area: aside-right;
 }
+
 footer {
   grid-area: footer;
 }
-.boxDashboard{
+
+.boxDashboard {
   grid-area: dashboard;
 }
 
