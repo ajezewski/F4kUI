@@ -48,13 +48,13 @@
 .box__content {
   line-height: 1.4em;
   min-height: 100px;
-  padding: 8%;
+  padding: 4% 6%;
 }
 
 .box__footer {
   position: relative;
   text-align: right;
-  padding-right: 8px;
+  padding-right: 12px;
 }
 
 .box__footer:before {
