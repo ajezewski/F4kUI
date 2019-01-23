@@ -17,7 +17,7 @@ class App extends Component {
         <BoxDashboard hideSourceOnDrag={true}>
           <Box id="b1" title="Simple title"
                tags={['task', 'fun']}
-               content="Proin libero risus, convallis in gravida at, suscipit sit amet metus. Integer iaculis ipsum non finibus dapibus. Vivamus at molestie nunc."/>
+               content="Proin libero risus, <a href='#'>convallis in gravida at</a>, suscipit sit amet metus. Integer iaculis ipsum non finibus dapibus. Vivamus at molestie nunc."/>
           <Box id="b2" title="Long title"
                tags={['note', 'book']}
                content="Integer iaculis ipsum non finibus dapibus."/>
@@ -27,7 +27,7 @@ class App extends Component {
           <Box id="b4" title="title vitae justo"
                content="Quisque viverra euismod nulla, at porttitor libero tempus a. In accumsan nisl mauris, vel sodales ligula dictum vel. Aliquam a orci lobortis, varius nunc at, viverra nisl. "/>
           <Box id="b5" title="title"
-               content="Sodales ligula duis sed placerat magna, vitae efficitur erat."/>
+               content="<p>Donec consequat:</p> <ul><li>dui vel molestie pellentesque,</li><li>ex ligula ullamcorper risus,</li><li>id commodo nisl ligula eget nibh.</li></ul> "/>
           <Box id="b6" title="Very long title"
                content="Duis ut augue egestas, tempor libero non, ultrices nibh."/>
           <Box id="b7" title="Long title"

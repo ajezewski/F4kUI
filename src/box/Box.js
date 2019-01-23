@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {DragSource} from 'react-dnd'
 import './box.css';
 import {ItemTypes} from '../Constants';
+import {default as TypographyWrapper} from '../TypographyWrapper';
 
 const boxSource = {
   beginDrag(props) {
@@ -25,9 +26,7 @@ function Box({connectDragSource, isDragging, id, left, top, title, content, foot
   return connectDragSource(
     <div id={id} style={{top, left}} className="box__wrapper">
       <BoxHeader title={title} />
-      <div className="box__content">
-        {content}
-      </div>
+      <TypographyWrapper content={content} className="box__content" />
       <div className="box__footer">
         {footer}
       </div>
