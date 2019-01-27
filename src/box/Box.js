@@ -4,6 +4,7 @@ import {DragSource} from 'react-dnd'
 import './box.css';
 import {ItemTypes} from '../Constants';
 import {default as TypographyWrapper} from '../TypographyWrapper';
+import {default as Button} from '../button/Button';
 
 const boxSource = {
   beginDrag(props) {
@@ -19,21 +20,28 @@ function collect(connect, monitor) {
   }
 }
 
-function Box({connectDragSource, isDragging, id, left, top, title, content, footer, hideSourceOnDrag}) {
+function Box({connectDragSource, isDragging, id, priority, left, top, title, content, hideSourceOnDrag}) {
   if (isDragging && hideSourceOnDrag) {
     return null;
   }
+  const style = Object.assign({}, {top, left}, setScale(priority));
   return connectDragSource(
-    <div id={id} style={{top, left}} className="box__wrapper">
+    <div id={id} style={style} className="box__wrapper">
       <BoxHeader title={title} />
       <TypographyWrapper content={content} className="box__content" />
       <div className="box__footer">
-        {footer}
+        <Button btnType="alert" value="x" className="alert"/>
+        <Button btnType="accept" value="&#x2713;" className="accept"/>
+        <Button btnType="info" value="i" className="info"/>
+        <Button btnType="more" value=">" className="more"/>
       </div>
     </div>
   );
 }
 
+const setScale = (factor = 10) => {
+  return { transform: `scale(${factor / 10})` }
+};
 
 const BoxHeader = ({title}) => {
   return (
@@ -46,7 +54,8 @@ const BoxHeader = ({title}) => {
 Box.propTypes = {
   title: PropTypes.string,
   content: PropTypes.string,
-  footer: PropTypes.string | PropTypes.object,
+  id: PropTypes.string,
+  priority: PropTypes.number,
   connectDragSource: PropTypes.func.isRequired,
   top: PropTypes.number,
   left: PropTypes.number,
