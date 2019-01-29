@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import {DragSource} from 'react-dnd'
 import './box.css';
 import {ItemTypes} from '../Constants';
@@ -39,6 +38,11 @@ class Box extends Component {
     }
   }
 
+  handleUpdate(e) {
+    const value = e.target.value;
+    this.setState({ priority: value });
+  }
+
   render() {
     if (this.props.isDragging && this.props.hideSourceOnDrag) {
       return null;
@@ -46,7 +50,11 @@ class Box extends Component {
 
     return this.props.connectDragSource(
       <div id={this.props.id} style={this.calculateStyle()} className="box__wrapper">
-        <BoxHeader title={this.props.title} priority={this.state.priority}/>
+        <BoxHeader
+          title={this.props.title}
+          priority={this.state.priority}
+          handleUpdate={this.handleUpdate.bind(this)}
+          />
         <TypographyWrapper content={this.props.content} className="box__content" />
         <div className="box__footer">
           <Button btnType="alert" value="x" className="alert"/>
@@ -63,14 +71,19 @@ const setScale = (factor = 10) => {
   return `scale(${factor / 10})`;
 };
 
-const BoxHeader = ({title, priority}) => {
+const BoxHeader = ({title, priority, handleUpdate}) => {
   return (
-    <div className="box__title">
-      {title}
+    <div className="box__header">
+      <div className="box__title">
+        {title}
+      </div>
       <input type="number"
+        className="box__header__input"
         value={priority}
-        onChange={(value) => console.log(value)}
-        max="10" min="1"/>
+        onChange={handleUpdate}
+        max="10" min="1"
+        title="Change priority to zoom in/out"
+      />
     </div>
   )
 };
