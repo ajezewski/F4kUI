@@ -44,6 +44,20 @@
 .box__title {
   padding: 6px 20px 6px 70px;
 }
+.box__header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.box__header__input {
+  background: transparent;
+  border: 0 solid;
+  color: #ffffff;
+  font-size: 1em;
+  margin: 0 10px 0 0;
+  width: 38px;
+  outline: 0 solid;
+}
 
 .box__content {
   line-height: 1.4em;
