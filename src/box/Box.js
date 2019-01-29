@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {DragSource} from 'react-dnd'
 import './box.css';
@@ -20,45 +20,59 @@ function collect(connect, monitor) {
   }
 }
 
-function Box({connectDragSource, isDragging, id, priority, left, top, title, content, hideSourceOnDrag}) {
-  if (isDragging && hideSourceOnDrag) {
-    return null;
+class Box extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      top: this.props.top,
+      left: this.props.left,
+      priority: this.props.priority,
+    }
   }
-  const style = Object.assign({}, {top, left}, setScale(priority));
-  return connectDragSource(
-    <div id={id} style={style} className="box__wrapper">
-      <BoxHeader title={title} />
-      <TypographyWrapper content={content} className="box__content" />
-      <div className="box__footer">
-        <Button btnType="alert" value="x" className="alert"/>
-        <Button btnType="accept" value="&#x2713;" className="accept"/>
-        <Button btnType="info" value="i" className="info"/>
-        <Button btnType="more" value=">" className="more"/>
+
+  calculateStyle = () => {
+    return {
+      top: this.state.top,
+      left: this.state.left,
+      transform: setScale(this.state.priority)
+    }
+  }
+
+  render() {
+    if (this.props.isDragging && this.props.hideSourceOnDrag) {
+      return null;
+    }
+
+    return this.props.connectDragSource(
+      <div id={this.props.id} style={this.calculateStyle()} className="box__wrapper">
+        <BoxHeader title={this.props.title} priority={this.state.priority}/>
+        <TypographyWrapper content={this.props.content} className="box__content" />
+        <div className="box__footer">
+          <Button btnType="alert" value="x" className="alert"/>
+          <Button btnType="accept" value="&#x2713;" className="accept"/>
+          <Button btnType="info" value="i" className="info"/>
+          <Button btnType="more" value=">" className="more"/>
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 const setScale = (factor = 10) => {
-  return { transform: `scale(${factor / 10})` }
+  return `scale(${factor / 10})`;
 };
 
-const BoxHeader = ({title}) => {
+const BoxHeader = ({title, priority}) => {
   return (
     <div className="box__title">
       {title}
+      <input type="number"
+        value={priority}
+        onChange={(value) => console.log(value)}
+        max="10" min="1"/>
     </div>
   )
-};
-
-Box.propTypes = {
-  title: PropTypes.string,
-  content: PropTypes.string,
-  id: PropTypes.string,
-  priority: PropTypes.number,
-  connectDragSource: PropTypes.func.isRequired,
-  top: PropTypes.number,
-  left: PropTypes.number,
 };
 
 export default DragSource(ItemTypes.BOX, boxSource, collect)(Box);
