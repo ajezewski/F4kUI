@@ -6,7 +6,6 @@ import {
   XYCoord,
 } from 'react-dnd';
 import {ItemTypes} from '../Constants';
-import logo from "../logo.svg";
 import './boxDashboard.css';
 
 
@@ -29,15 +28,17 @@ const boxTarget = {
 };
 
 interface BoxDashboardProps {
-  hideSourceOnDrag: boolean,
-  children: any,
+  hideSourceOnDrag: boolean;
+  children: any;
 }
 
 interface BoxDashboardCollectedProps {
-  connectDropTarget: ConnectDropTarget
+  connectDropTarget: ConnectDropTarget;
 }
 
-class BoxDashboard extends Component<BoxDashboardProps & BoxDashboardCollectedProps> {
+class BoxDashboard extends Component<
+  BoxDashboardProps & BoxDashboardCollectedProps
+> {
   protected children: any;
 
   constructor(props: BoxDashboardProps & BoxDashboardCollectedProps) {
@@ -46,16 +47,15 @@ class BoxDashboard extends Component<BoxDashboardProps & BoxDashboardCollectedPr
   }
 
   render() {
-    const {hideSourceOnDrag, connectDropTarget} = this.props;
+    const { hideSourceOnDrag, connectDropTarget } = this.props;
 
     return connectDropTarget(
       <div className={'boxDashboard'}>
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo"/>
         </header>
         {this.children}
       </div>
-    )
+    );
   }
 
   moveBox(id: string, left: number, top: number) {
@@ -75,4 +75,3 @@ export default DropTarget<BoxDashboardProps, BoxDashboardCollectedProps>(
     connectDropTarget: connect.dropTarget()
   })
 )(BoxDashboard);
-

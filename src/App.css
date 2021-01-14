@@ -4,10 +4,10 @@
   background-size: cover;
   height: 100%;
   position: relative;
-  display: grid;
-  grid-template-areas: "header header header" "aside-left dashboard aside-right" "footer footer footer";
-  grid-template-rows: 40px 1fr 40px;
-  grid-template-columns: 10px auto 10px;
+  /*display: grid;*/
+  grid-template-areas: " . header . " "aside-left dashboard aside-right" " . footer . ";
+  grid-template-rows: var(--paneWidth) auto var(--paneWidth);
+  grid-template-columns: var(--paneWidth) auto var(--paneWidth);
 }
 
 .App-logo {
@@ -19,27 +19,96 @@
 .App-link {
   color: #61dafb;
 }
-
+.App {
+  --paneWidth: 0; /* 10vw; */
+  --paneWidthN: 0; /* -10vw; */
+}
 .App > header {
-  background: #000;
+  background: yellow;
   color: #fff;
+  height: var(--paneWidth);
   line-height: 30px;
   grid-area: header;
+  position: relative;
+}
+
+.App > header:before {
+  content:'';
+  display: block;
+  position: absolute;
+  background: yellow;
+  height: 100%;
+  width: var(--paneWidth);
+  top: 0;
+  left: var(--paneWidthN);
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    100% 100%
+  );
+}
+.App > header:after {
+  content:'';
+  display: block;
+  position: absolute;
+  background: yellow;
+  height: 100%;
+  width: var(--paneWidth);
+  top: 0;
+  right: var(--paneWidthN);
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    0 100%
+  );
 }
 
 aside {
+  background: pink;
+  position: relative;
+  width: var(--paneWidth);
 }
-
+aside:before,
+aside:after {
+  background: pink;
+  content: '';
+  display: block;
+  height: var(--paneWidth);
+  position: absolute;
+  width: var(--paneWidth);
+}
+aside:before {
+  top: var(--paneWidthN);
+}
+aside:after {
+  bottom: var(--paneWidthN);
+}
+aside
+.corner {
+  grid-area: corner;
+  display: block;
+  height: var(--paneWidth);
+  width: var(--paneWidth);
+}
 aside.left {
   grid-area: aside-left;
 }
-
+aside.left:before {
+  top: var(--paneWidthN);
+  left: 0;
+  clip-path: polygon(
+    0 0,
+    100% 100%,
+    0 100%
+  )
+}
 aside.right {
   grid-area: aside-right;
 }
 
 footer {
   grid-area: footer;
+  background: green;
 }
 
 .boxDashboard {

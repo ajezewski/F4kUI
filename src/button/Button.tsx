@@ -1,7 +1,13 @@
 import React from 'react';
 import './button.css';
 
-const Button = ({btnType, className, value} = {btnType: '', className: '', value: ''}) => {
+type BtnType = 'button'  | 'submit' | 'reset' | undefined;
+type ButtonProps = {
+  btnType: BtnType,
+  className: string,
+  value: string
+}
+const Button = ({btnType, className, value}: ButtonProps) => {
   return (
     <button
       type={btnType}

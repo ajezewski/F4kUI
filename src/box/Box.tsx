@@ -1,36 +1,41 @@
-import React, {Component} from 'react';
+import React, {Component, Props} from 'react';
 import {DragSource} from 'react-dnd'
 import './box.css';
 import {ItemTypes} from '../Constants';
 import {default as TypographyWrapper} from '../TypographyWrapper';
 import {default as Button} from '../button/Button';
 
+interface BoxProps  {
+  top:any,
+  left: any,
+  priority: any
+}
 const boxSource = {
-  beginDrag(props) {
+  beginDrag(props: any) {
     const {id, left, top} = props;
     return {id, left, top}
   }
 };
 
-function collect(connect, monitor) {
+function collect(connect: any, monitor: any) {
   return {
     connectDragSource: connect.dragSource(),
     isDragging: monitor.isDragging()
   }
 }
 
-class Box extends Component {
-  constructor(props) {
+class Box extends Component<any, any> {
+  constructor(props:any) {
     super(props)
 
     this.state = {
       top: this.props.top,
       left: this.props.left,
       priority: this.props.priority,
-    }
+    } as any
   }
 
-  calculateStyle = () => {
+  calculateStyle: any = () => {
     return {
       top: this.state.top,
       left: this.state.left,
@@ -38,7 +43,7 @@ class Box extends Component {
     }
   }
 
-  handleUpdate(e) {
+  handleUpdate(e:any) {
     const value = e.target.value;
     this.setState({ priority: value });
   }
@@ -57,10 +62,10 @@ class Box extends Component {
           />
         <TypographyWrapper content={this.props.content} className="box__content" />
         <div className="box__footer">
-          <Button btnType="alert" value="x" className="alert"/>
-          <Button btnType="accept" value="&#x2713;" className="accept"/>
-          <Button btnType="info" value="i" className="info"/>
-          <Button btnType="more" value=">" className="more"/>
+          <Button btnType="button" value="x" className="alert"/>
+          <Button btnType="button" value="&#x2713;" className="accept"/>
+          <Button btnType="button" value="i" className="info"/>
+          <Button btnType="button" value=">" className="more"/>
         </div>
       </div>
     );
@@ -71,7 +76,8 @@ const setScale = (factor = 10) => {
   return `scale(${factor / 10})`;
 };
 
-const BoxHeader = ({title, priority, handleUpdate}) => {
+const BoxHeader = (properties: any) => {
+  const {title, priority, handleUpdate} = properties;
   return (
     <div className="box__header">
       <div className="box__title">

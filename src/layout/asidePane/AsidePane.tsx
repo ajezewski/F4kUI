@@ -1,7 +1,12 @@
 import React from 'react';
 import './asidePane.css';
 
-class AsidePane extends React.Component {
+interface IAsidePaneProps {
+  expandWidth: string,
+  position: string,
+}
+
+class AsidePane extends React.Component<IAsidePaneProps, any> {
   private expandWidth: string;
   private position: string;
   private style: object = {};
