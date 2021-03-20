@@ -5,13 +5,15 @@ type BtnType = 'button'  | 'submit' | 'reset' | undefined;
 type ButtonProps = {
   btnType: BtnType,
   className: string,
-  value: string
+  value: string,
+  click?: any
 }
-const Button = ({btnType, className, value}: ButtonProps) => {
+const Button = ({btnType, className, value, click}: ButtonProps) => {
   return (
     <button
       type={btnType}
       className={className}
+      onClick={click}
     >
       <span>{value}</span>
     </button>

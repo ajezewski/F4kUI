@@ -30,6 +30,7 @@ const boxTarget = {
 interface BoxDashboardProps {
   hideSourceOnDrag: boolean;
   children: any;
+  boxes: any[]
 }
 
 interface BoxDashboardCollectedProps {
@@ -50,9 +51,7 @@ class BoxDashboard extends Component<
     const { hideSourceOnDrag, connectDropTarget } = this.props;
 
     return connectDropTarget(
-      <div className={'boxDashboard'}>
-        <header className="App-header">
-        </header>
+      <div className={'boxDashboard'} id={'boxDashboard'}>
         {this.children}
       </div>
     );
