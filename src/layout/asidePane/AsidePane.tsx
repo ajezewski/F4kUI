@@ -9,7 +9,7 @@ interface IAsidePaneProps {
 class AsidePane extends React.Component<IAsidePaneProps, any> {
   private expandWidth: string;
   private position: string;
-  private style: object = {};
+  private style = {};
 
   constructor(props: any) {
     super(props);
@@ -18,6 +18,7 @@ class AsidePane extends React.Component<IAsidePaneProps, any> {
   }
 
   handleClick = (e: React.MouseEvent<HTMLElement>) => {
+    console.log('click event')
   };
 
   render() {
