@@ -1,3 +1,13 @@
+Experimental futuristic UI for 2k and larger displays.
+
+### Warning:
+This project is a React playground :)
+
+### Known issues:
+for npm version 7.0 up to 7.5 please use `npm install -f`
+
+
+##
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

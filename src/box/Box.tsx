@@ -91,8 +91,8 @@ const setScale = (factor = 10) => {
 };
 
 const randomPosition = (): {top: string, left: string} => {
-  let top = Math.random() * 100;
-  let left = Math.random() * 100;
+  const top = Math.random() * 100;
+  const left = Math.random() * 100;
   const container: HTMLElement | null = document.querySelector('body');
   if (!container) {
     return {

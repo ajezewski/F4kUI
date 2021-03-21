@@ -19,7 +19,7 @@ const boxTarget = {
       return;
     }
 
-    const item = monitor.getItem();
+    const item:any = monitor.getItem();
     const delta = monitor.getSourceClientOffset() as XYCoord;
     const left = Math.round(delta.x - 16);
     const top = Math.round(delta.y - 16);
