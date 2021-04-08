@@ -1,0 +1,14 @@
+#zoomer {
+  width: 20px;
+}
+
+#zoomer input {
+  transform: rotate(-90deg) translate(-50%, -143px);
+  width: 300px;
+}
+#zoomer span {
+  color: #fff;
+  display: block;
+  font-size: 1.6rem;
+  text-align: center;
+}

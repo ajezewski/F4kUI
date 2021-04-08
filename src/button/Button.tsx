@@ -8,7 +8,7 @@ type ButtonProps = {
   value: string,
   click?: any
 }
-const Button = ({btnType, className, value, click}: ButtonProps) => {
+const Button = ({btnType, className, value, click}: ButtonProps): JSX.Element => {
   return (
     <button
       type={btnType}

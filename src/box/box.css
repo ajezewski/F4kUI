@@ -116,3 +116,9 @@
   position: absolute;
   width: 15px;
 }
+
+.fadeOut,
+.fadeOut:hover {
+  opacity: 0 !important;
+  z-index: -1;
+}
