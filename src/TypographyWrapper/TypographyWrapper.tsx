@@ -6,7 +6,7 @@ interface TypographyWrapperProps {
   className?: string,
 }
 
-const TypographyWrapper = (props: TypographyWrapperProps) => {
+const TypographyWrapper = (props: TypographyWrapperProps): JSX.Element => {
   return (
     <div className={`${props.className} typography`}
          dangerouslySetInnerHTML={createMarkup(props.content)}

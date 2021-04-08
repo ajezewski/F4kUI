@@ -1,89 +1,129 @@
-import React, {Component, Props} from 'react';
-import {DragSource} from 'react-dnd'
+import React, { useEffect, useState } from 'react';
+import { useDrag } from 'react-dnd'
 import './box.css';
-import {ItemTypes} from '../Constants';
-import {default as TypographyWrapper} from '../TypographyWrapper';
-import {default as Button} from '../button/Button';
+import { ItemTypes } from '../Constants';
+import { default as TypographyWrapper } from '../TypographyWrapper';
+import { default as Button } from '../button/Button';
 
-interface BoxProps  {
+interface BoxState {
+  top: string;
+  left: string;
+  priority: number;
+  className: string[];
+}
+
+interface BoxProps {
   id: string;
-  top: any;
-  left: any;
-  priority: any;
-  class?: string;
-}
-const boxSource = {
-  beginDrag(props: BoxProps) {
-    const {id, left, top} = props;
-    return {id, left, top}
-  }
-};
-
-function collect(connect: any, monitor: any) {
-  return {
-    connectDragSource: connect.dragSource(),
-    isDragging: monitor.isDragging()
-  }
+  tags: any[];
+  title: string;
+  priority: string;
+  content: string;
+  zoom: string;
 }
 
-class Box extends Component<any, any> {
-  constructor(props:any) {
-    super(props)
-    const { top, left } = randomPosition();
-    this.state = {
-      top: top,
-      left: left,
-      priority: this.props.priority || 10,
-      class: '',
-    } as any
-  }
+const Box = (props: BoxProps): JSX.Element => {
+  const { top, left } = randomPosition();
+  const priority = parseInt(props.priority);
+  const [boxState, setBoxState] = useState<BoxState>({
+    top,
+    left,
+    priority,
+    className: ['box__wrapper']
+  })
 
-  calculateStyle: any = () => {
+  useEffect(() => {
+    setBoxState((currentState) => ({
+      ...currentState,
+      priority: parseInt(props.zoom) + parseInt(props.priority)
+    }));
+    setZoomClass(boxState.priority);
+  }, [props.zoom, props.priority, boxState.priority]);
+
+  const [, drag] = useDrag(() => {
     return {
-      top: this.state.top,
-      left: this.state.left,
-      transform: setScale(this.state.priority),
-      opacity: this.state.priority >= 8 ? '1' : (this.state.priority + 2)/10
+      type: ItemTypes.BOX,
+      item: {
+        updatePosition: (top: string, left: string) => {
+          setBoxState(currentState => ({
+            ...currentState,
+            top,
+            left
+          }))
+        }
+       }
+    }
+  })
+
+  const setZoomClass = (zoom: number):void => {
+    const newClasses = zoom > 10 ? addCssClass('fadeOut', boxState.className) : removeCssClass('fadeOut', boxState.className);
+    setBoxState((currentState: BoxState) => ({
+      ...currentState,
+      className: newClasses
+    }))
+  }
+
+  const calculateStyle = () => {
+    const priority = boxState.priority || parseInt(props.priority);
+
+    return {
+      top: boxState.top,
+      left: boxState.left,
+      transform: boxState.priority >= 10 ? 'none' : setScale(boxState.priority),
+      opacity: priority >= 8 ? '1' : (priority + 2)/10
     }
   }
 
-  handleUpdate(e:any) {
-    const value = e.target.value;
-    this.setState({ priority: value });
+  const handleUpdate = (e:any) => {
+    // const value: number = parseInt(e.target.value);
+    // setPriority(value);
   }
 
-  maximilaze() {
-    this.setState({...this.state, class: 'fullMode'});
+  const maximilaze = () => {
+    setBoxState((currentState => ({
+      ...currentState,
+      className: addCssClass('fullMode', currentState.className)
+    })))
   }
 
-  minimalize() {
-    const classes = this.state.class.replace('fullMode', '');
-
-    this.setState({ ...this.state, class: classes})
+  const minimalize = () => {
+    setBoxState((currentState => ({
+      ...currentState,
+      className: removeCssClass('fullMode',currentState.className)
+    })))
   }
-  render() {
-    if (this.props.isDragging && this.props.hideSourceOnDrag) {
-      return null;
-    }
 
-    return this.props.connectDragSource(
-      <div id={this.props.id} style={this.calculateStyle()} className={this.state.class + ' box__wrapper'}>
-        <BoxHeader
-          title={this.props.title}
-          priority={this.state.priority}
-          handleUpdate={this.handleUpdate.bind(this)}
-          />
-        <TypographyWrapper content={this.props.content} className="box__content" />
-        <div className="box__footer">
-          <Button btnType="button" value="x" className="alert" />
-          <Button btnType="button" value="&#x2713;" className="accept" />
-          <Button btnType="button" value="i" className="info" />
-          <Button btnType="button" value=">" className="more" click={this.maximilaze.bind(this)} />
-          <Button btnType="button" value="<" className="less" click={this.minimalize.bind(this)} />
-        </div>
+  return (
+    <div ref={drag} id={props.id} style={calculateStyle()} className={boxState.className.join(' ')}>
+      <BoxHeader
+        title={props.title}
+        priority={props.priority}
+        handleUpdate={handleUpdate}
+        />
+      <TypographyWrapper content={props.content} className="box__content" />
+      <div className="box__footer">
+        <Button btnType="button" value="x" className="alert" />
+        <Button btnType="button" value="&#x2713;" className="accept" />
+        <Button btnType="button" value="i" className="info" />
+        <Button btnType="button" value=">" className="more" click={maximilaze} />
+        <Button btnType="button" value="<" className="less" click={minimalize} />
       </div>
-    );
+    </div>
+  );
+}
+
+const addCssClass = (className: string, classes: string[]): string[] => {
+  if (classes.indexOf(className) === -1) {
+    classes.push(className)
   }
+  return [...classes];
+}
+
+const removeCssClass = (className: string, classes: string[]): string[] => {
+  const index = classes.indexOf(className);
+  if (index > -1) {
+    classes.splice(index, 1);
+  }
+  return [...classes];
 }
 
 const setScale = (factor = 10) => {
@@ -91,8 +131,8 @@ const setScale = (factor = 10) => {
 };
 
 const randomPosition = (): {top: string, left: string} => {
-  const top = Math.random() * 100;
-  const left = Math.random() * 100;
+  const top = Math.round(Math.random() * 100);
+  const left = Math.round(Math.random() * 100);
   const container: HTMLElement | null = document.querySelector('body');
   if (!container) {
     return {
@@ -110,6 +150,7 @@ const randomPosition = (): {top: string, left: string} => {
     left: fitBox(left, boxHeight, containerHeight) + '%'
   }
 }
+
 const fitBox = (position: number, boxSize: number, containerSize: number): number => {
   const percent = Math.ceil(position + (boxSize/containerSize) * 100);
 
@@ -118,7 +159,8 @@ const fitBox = (position: number, boxSize: number, containerSize: number): numbe
   }
   return position;
 }
-const BoxHeader = (properties: any) => {
+
+const BoxHeader = (properties: any): JSX.Element => {
   const {title, priority, handleUpdate} = properties;
   return (
     <div className="box__header">
@@ -136,4 +178,4 @@ const BoxHeader = (properties: any) => {
   )
 };
 
-export default DragSource(ItemTypes.BOX, boxSource, collect)(Box);
+export default Box;

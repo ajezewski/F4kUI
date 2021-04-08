@@ -17,11 +17,11 @@ class AsidePane extends React.Component<IAsidePaneProps, any> {
     this.position = props.position;
   }
 
-  handleClick = (e: React.MouseEvent<HTMLElement>) => {
-    console.log('click event')
+  handleClick = (e: React.MouseEvent<HTMLElement>): void => {
+    console.log('click event', e)
   };
 
-  render() {
+  render(): React.ReactNode {
     return (
       <aside onClick={this.handleClick} className={this.position}>
       </aside>
