@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDrag } from 'react-dnd'
 import './box.css';
-import { ItemTypes } from '../Constants';
+import { ItemTypes } from '../constants';
 import { default as TypographyWrapper } from '../TypographyWrapper';
 import { default as Button } from '../button/Button';
 
@@ -14,7 +14,7 @@ interface BoxState {
 
 interface BoxProps {
   id: string;
-  tags: any[];
+  tags: string[];
   title: string;
   priority: string;
   content: string;
