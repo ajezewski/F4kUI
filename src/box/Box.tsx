@@ -18,7 +18,7 @@ interface BoxProps {
   title: string;
   priority: string;
   content: string;
-  zoom: string;
+  zoom: number;
 }
 
 const Box = (props: BoxProps): JSX.Element => {
@@ -34,7 +34,7 @@ const Box = (props: BoxProps): JSX.Element => {
   useEffect(() => {
     setBoxState((currentState) => ({
       ...currentState,
-      priority: parseInt(props.zoom) + parseInt(props.priority)
+      priority: parseInt(props.zoom + '') + parseInt(props.priority)
     }));
     setZoomClass(boxState.priority);
   }, [props.zoom, props.priority, boxState.priority]);
