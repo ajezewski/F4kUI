@@ -1,5 +1,5 @@
 import React from 'react';
-import './asidePane.css';
+import './asidePane.scss';
 
 interface IAsidePaneProps {
   expandWidth: string,

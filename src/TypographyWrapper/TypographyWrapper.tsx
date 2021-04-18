@@ -1,5 +1,5 @@
 import React from 'react';
-import './TypographyWrapper.css';
+import './typographyWrapper.scss';
 
 interface TypographyWrapperProps {
   content: string,

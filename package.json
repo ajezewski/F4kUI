@@ -11,14 +11,14 @@
     "react-dnd": "^14.0.1",
     "react-dnd-html5-backend": "^14.0.0",
     "react-dom": "^17.0.0",
-    "react-scripts": "4.0.3"
+    "react-scripts": "4.0.3",
+    "sass": "^1.32.10"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "env-cmd -f .env.development react-scripts start",
     "build": "env-cmd -f .env.development react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "start:development": "env-cmd -f .env.development react-scripts start",
     "build:production": "env-cmd -f .env.production react-scripts build"
   },
   "eslintConfig": {

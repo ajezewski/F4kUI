@@ -1,5 +1,5 @@
 import React, { useEffect,useState } from 'react';
-import './zoom.css';
+import './zoom.scss';
 
 type Props = {
   zoom: number;
