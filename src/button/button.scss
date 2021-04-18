@@ -1,3 +1,4 @@
+@import '../global';
 button {
   background: rgba(213, 244, 255, 0.24);
   border: 3px double rgba(255, 255, 255, 0.3);
@@ -25,21 +26,21 @@ button span {
 }
 
 .alert {
-  color: #913238;
-  border-color: #913238;
+  color: $alertColor;
+  border-color: $alertColor;
 }
 
 .info {
-  color: #b4dcf5;
-  border-color: #b4dcf5;
+  color: $infoColor;
+  border-color: $infoColor;
 }
 
 .more {
-  color: #ecd6ad;
-  border-color: #ecd6ad;
+  color: $moreColor;
+  border-color: $moreColor;
 }
 
 .accept {
-  color: #7caa7b;
-  border-color: #7caa7b;
+  color: $acceptColor;
+  border-color: $acceptColor;
 }

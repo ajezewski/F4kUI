@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDrag } from 'react-dnd'
-import './box.css';
+import './box.scss';
 import { ItemTypes } from '../constants';
 import { default as TypographyWrapper } from '../TypographyWrapper';
 import { default as Button } from '../button/Button';

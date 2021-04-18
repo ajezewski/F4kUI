@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDrop, XYCoord } from 'react-dnd';
 import { ItemTypes } from '../constants';
-import './boxDashboard.css';
+import './boxDashboard.scss';
 
 const BoxDashboard = (props: any): JSX.Element => {
   const [, drop] = useDrop(() => ({

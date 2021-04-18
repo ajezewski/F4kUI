@@ -10,15 +10,6 @@
   grid-template-columns: var(--paneWidth) auto var(--paneWidth);
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 10vmin;
-  margin: 25vmin 0;
-}
-
-.App-link {
-  color: #61dafb;
-}
 .App {
   --paneWidth: 0; /* 10vw; */
   --paneWidthN: 0; /* -10vw; */

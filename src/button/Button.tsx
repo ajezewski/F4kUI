@@ -1,5 +1,5 @@
 import React from 'react';
-import './button.css';
+import './button.scss';
 
 type BtnType = 'button'  | 'submit' | 'reset' | undefined;
 type ButtonProps = {

@@ -4,7 +4,7 @@ import Box from './box/Box';
 import Layout from './layout/Layout';
 import Zoom from './zoom/Zoom';
 import { Note } from './providers/models';
-import './App.css';
+import './app.scss';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { getNotes } from './providers/data';
