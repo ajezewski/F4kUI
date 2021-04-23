@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, {KeyboardEvent, RefObject, useEffect, useState} from 'react';
 import { useDrag } from 'react-dnd'
-import './box.css';
+import './box.scss';
 import { ItemTypes } from '../constants';
 import { default as TypographyWrapper } from '../TypographyWrapper';
 import { default as Button } from '../button/Button';
@@ -18,10 +18,11 @@ interface BoxProps {
   title: string;
   priority: string;
   content: string;
-  zoom: string;
+  zoom: number;
 }
 
 const Box = (props: BoxProps): JSX.Element => {
+  const ref: RefObject<HTMLDivElement> = React.createRef();
   const { top, left } = randomPosition();
   const priority = parseInt(props.priority);
   const [boxState, setBoxState] = useState<BoxState>({
@@ -34,7 +35,7 @@ const Box = (props: BoxProps): JSX.Element => {
   useEffect(() => {
     setBoxState((currentState) => ({
       ...currentState,
-      priority: parseInt(props.zoom) + parseInt(props.priority)
+      priority: parseInt(props.zoom + '') + parseInt(props.priority)
     }));
     setZoomClass(boxState.priority);
   }, [props.zoom, props.priority, boxState.priority]);
@@ -78,11 +79,18 @@ const Box = (props: BoxProps): JSX.Element => {
     // setPriority(value);
   }
 
+  const handleKeyUp = (e: KeyboardEvent) => {
+    e.stopPropagation();
+    if (e.key === 'Escape' && boxState.className.includes('fullMode')) {
+      minimalize();
+    }
+  }
   const maximilaze = () => {
     setBoxState((currentState => ({
       ...currentState,
       className: addCssClass('fullMode', currentState.className)
-    })))
+    })));
+    ref.current?.focus();
   }
 
   const minimalize = () => {
@@ -93,19 +101,26 @@ const Box = (props: BoxProps): JSX.Element => {
   }
 
   return (
-    <div ref={drag} id={props.id} style={calculateStyle()} className={boxState.className.join(' ')}>
-      <BoxHeader
-        title={props.title}
-        priority={props.priority}
-        handleUpdate={handleUpdate}
-        />
-      <TypographyWrapper content={props.content} className="box__content" />
-      <div className="box__footer">
-        <Button btnType="button" value="x" className="alert" />
-        <Button btnType="button" value="&#x2713;" className="accept" />
-        <Button btnType="button" value="i" className="info" />
-        <Button btnType="button" value=">" className="more" click={maximilaze} />
-        <Button btnType="button" value="<" className="less" click={minimalize} />
+    <div ref={drag} id={props.id} style={calculateStyle()}
+         className={boxState.className.join(' ')}
+    >
+      <div ref={ref}
+           tabIndex={idToNumber(props.id)}
+           onKeyUp={handleKeyUp}
+      >
+        <BoxHeader
+          title={props.title}
+          priority={props.priority}
+          handleUpdate={handleUpdate}
+          />
+        <TypographyWrapper content={props.content} className="box__content" />
+        <div className="box__footer">
+          <Button btnType="button" value="x" className="alert" />
+          <Button btnType="button" value="&#x2713;" className="accept" />
+          <Button btnType="button" value="i" className="info" />
+          <Button btnType="button" value=">" className="more" click={maximilaze} />
+          <Button btnType="button" value="<" className="less" click={minimalize} />
+        </div>
       </div>
     </div>
   );
@@ -129,6 +144,9 @@ const removeCssClass = (className: string, classes: string[]): string[] => {
 const setScale = (factor = 10) => {
   return `scale(${factor / 10})`;
 };
+
+const idToNumber = (id: string): number => parseInt(id.replace(/[a-zA-Z]/,''));
+
 
 const randomPosition = (): {top: string, left: string} => {
   const top = Math.round(Math.random() * 100);
