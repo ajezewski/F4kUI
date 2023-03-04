@@ -10,7 +10,9 @@ button {
   font-weight: bold;
   padding: 0.2em 1.1em;
   transition: all ease-in 0.4s;
-  transform: skew(-30deg)
+  transform: skew(-30deg);
+  height: 3.5rem;
+  line-height: 3.5rem;
 }
 
 button:hover {
@@ -20,11 +22,15 @@ button:hover {
 
 button span {
   display: block;
-  height: 1.5rem;
-  line-height: 1.5rem;
   transform: skew(30deg);
+  width: 2.5rem;
 }
 
+button img {
+  height: 18px;
+  width: 18px;
+  transform: skew(30deg);
+}
 .alert {
   color: $alertColor;
   border-color: $alertColor;

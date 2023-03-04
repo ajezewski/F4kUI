@@ -70,9 +70,10 @@ const Box = (props: BoxProps): JSX.Element => {
       top: boxState.top,
       left: boxState.left,
       transform: boxState.priority >= 10 ? 'none' : setScale(boxState.priority),
-      opacity: priority >= 8 ? '1' : (priority + 2)/10
+      opacity: calculateOpacity()
     }
   }
+  const calculateOpacity = () => boxState.priority >= 8 ? '1' : (boxState.priority + 2)/10;
 
   const handleUpdate = (e:any) => {
     // const value: number = parseInt(e.target.value);
@@ -107,19 +108,20 @@ const Box = (props: BoxProps): JSX.Element => {
       <div ref={ref}
            tabIndex={idToNumber(props.id)}
            onKeyUp={handleKeyUp}
+           style={{opacity: calculateOpacity()}}
       >
         <BoxHeader
           title={props.title}
           priority={props.priority}
           handleUpdate={handleUpdate}
-          />
+        />
         <TypographyWrapper content={props.content} className="box__content" />
         <div className="box__footer">
-          <Button btnType="button" value="x" className="alert" />
-          <Button btnType="button" value="&#x2713;" className="accept" />
-          <Button btnType="button" value="i" className="info" />
-          <Button btnType="button" value=">" className="more" click={maximilaze} />
-          <Button btnType="button" value="<" className="less" click={minimalize} />
+          <Button btnType="button" className="alert" ><img src="images/delete.svg" alt={'Remove'} /></Button>
+          <Button btnType="button" className="accept" ><img src="images/done.svg" alt={'Accept'} /></Button>
+          <Button btnType="button" className="info" ><img src="images/info.svg" alt={'More info'} /></Button>
+          <Button btnType="button" className="more" click={maximilaze}><img src="images/open_in_full.svg" alt={'Full note'} /></Button>
+          <Button btnType="button" className="less" click={minimalize}><img src="images/close_fullscreen.svg" alt={'Full note'} /></Button>
         </div>
       </div>
     </div>
